@@ -11,6 +11,7 @@ node {
         }
 
         stage('Build images with Docker Compose') {
+	    sh 'docker-compose pull'
             sh 'docker-compose build'
             backendImage = "${acrHost}/azure-vote-back:${env.BUILD_NUMBER}"
             frontendImage = "${acrHost}/azure-vote-front:${env.BUILD_NUMBER}"
