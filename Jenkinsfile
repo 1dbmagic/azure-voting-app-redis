@@ -32,6 +32,10 @@ node {
         stage('Clean up local images') {
             sh 'docker-compose down --rmi all'
         }
+	stage('Trigger Update Manifest') {
+	    echo "Triggering voting-app-manifest"
+	    build job: 'voting-app-manifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
+	}
     } catch (e) {
         error "Pipeline failed: ${e}"
     } finally {
